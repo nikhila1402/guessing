@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guessing Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 300px;
+            font-size: 18px;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <label for="userInput">User Input</label><br>
+        <input type="number" id="userInput"><br>
+
+        <label for="machineInput">M input</label><br>
+        <input type="number" id="machineInput" disabled><br>
+
+        <p>Seconds: <span id="timer">0</span></p>
+
+        <div class="score">
+            <p>Human Score : <span id="humanScore">0</span></p>
+            <p>Machine Score : <span id="machineScore">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        let humanScore = 0;
+        let machineScore = 0;
+        let seconds = 0;
+
+        // Timer function
+        setInterval(() => {
+            seconds++;
+            document.getElementById('timer').innerText = seconds;
+        }, 1000);
+
+        // Machine random input and score logic
+        function generateMachineInput() {
+            let machineInput = Math.floor(Math.random() * 100);  // Random number between 0-99
+            document.getElementById('machineInput').value = machineInput;
+            return machineInput;
+        }
+
+        // User input validation and scoring
+        document.getElementById('userInput').addEventListener('input', function () {
+            let userValue = parseInt(this.value);
+            let machineValue = generateMachineInput();
+
+            if (userValue === machineValue) {
+                humanScore++;
+            } else {
+                machineScore++;
+            }
+
+            document.getElementById('humanScore').innerText = humanScore;
+            document.getElementById('machineScore').innerText = machineScore;
+        });
+    </script>
+
+</body>
+</html>
